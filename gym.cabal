@@ -1,0 +1,13 @@
+name: gym
+version: 0.1.0.0
+build-type: Simple
+
+executable my-exe
+  main-is: parse.hs
+  build-depends:
+    base >= 4.7 && < 5,
+    parsec,
+    aeson,
+    mtl,
+    bytestring,
+    text
