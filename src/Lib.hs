@@ -1,4 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
+module Lib
+    ( workoutFile
+    ) where
 
 import Text.Parsec
 import Text.Parsec.String
@@ -8,6 +11,7 @@ import Debug.Trace
 import Data.Aeson
 import GHC.Generics
 import Data.ByteString.Lazy  
+
 
 data Workout = Workout {
     date :: Maybe String,
@@ -34,6 +38,7 @@ instance ToJSON Workout where
     toEncoding = genericToEncoding defaultOptions
 instance FromJSON Workout
 
+workoutFile :: ParsecT String u Identity [Workout]
 workoutFile = option [] (sepEndBy workout (many1 endOfLine)) <* eof
 workout = do
   trace ("reading workout") $ return ()
@@ -65,13 +70,15 @@ exercise = do
     _ <- endOfLine
     return $ Exercise name reps sets weight failure improvement
 
-main :: IO ()
-main = do
-    contents <- Prelude.readFile "data.txt"
-    case parse workoutFile "" contents of
-        Left err -> putStrLn $ "Parsing error: " ++ show err
-        Right workouts -> do
-            putStrLn "Parsed workouts:"
-            Data.ByteString.Lazy.writeFile "output.json" (encode workouts)
+
+--main :: IO ()
+--main = do
+    --contents <- Prelude.readFile "data.txt"
+    --case parse workoutFile "" contents of
+        --Left err -> putStrLn $ "Parsing error: " ++ show err
+        --Right workouts -> do
+            --putStrLn "Parsed workouts:"
+            --Data.ByteString.Lazy.writeFile "output.json" (encode workouts)
+
 
 

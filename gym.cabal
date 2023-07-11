@@ -1,13 +1,76 @@
-name: gym
-version: 0.1.0.0
-build-type: Simple
+cabal-version: 1.12
 
-executable my-exe
-  main-is: parse.hs
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           gym
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/gym#readme>
+homepage:       https://github.com/githubuser/gym#readme
+bug-reports:    https://github.com/githubuser/gym/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2023 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/gym
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_gym
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-    base >= 4.7 && < 5,
-    parsec,
-    aeson,
-    mtl,
-    bytestring,
-    text
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , mtl
+    , parsec ==3.1.*
+    , text
+  default-language: Haskell2010
+
+executable gym-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_gym
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , gym
+    , mtl
+    , parsec ==3.1.*
+    , text
+  default-language: Haskell2010
+
+test-suite gym-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_gym
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , gym
+    , mtl
+    , parsec ==3.1.*
+    , text
+  default-language: Haskell2010
