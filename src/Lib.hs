@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveGeneric #-}
 module Lib
-    ( workoutFile
+    ( workoutFile, Workout(..), Exercise(..)
     ) where
 
 import Text.Parsec
@@ -9,12 +9,14 @@ import Control.Applicative ((<$>), (<*>), (<*), (*>))
 import Control.Monad.Identity
 import Debug.Trace
 import Data.Aeson
+import Data.Maybe
 import GHC.Generics
+import Data.Time
 import Data.ByteString.Lazy  
 
 
 data Workout = Workout {
-    date :: Maybe String,
+    date :: Maybe Day,
     workoutType :: Maybe String,
     exercises :: [Exercise]
 } deriving (Show, Generic)
@@ -41,19 +43,19 @@ instance FromJSON Workout
 workoutFile :: ParsecT String u Identity [Workout]
 workoutFile = option [] (sepEndBy workout (many1 endOfLine)) <* eof
 workout = do
-  trace ("reading workout") $ return ()
+  --trace ("reading workout") $ return ()
   skipMany (satisfy (/= '\n')) -- Skip over any characters that are not end-of-line characters
   endOfLine
   date <- optionMaybe $ try $ manyTill anyChar endOfLine
-  trace ("date: " ++ show date) $ return ()
+  --trace ("date: " ++ show date) $ return ()
   workoutType <- optionMaybe (try (string "Push") <|> try (string "Pull") <|> string "Legs")
   skipMany (satisfy (/= '\n')) -- Skip over any characters that are not end-of-line characters
   endOfLine
-  trace ("workoutType: " ++ show workoutType) $ return ()
+  --trace ("workoutType: " ++ show workoutType) $ return ()
   exercises <- option [] $ manyTill exercise (lookAhead (try endOfLine <|> (try eof >> return ' ')))
   ---- trace exercises
   ----trace ("exercises: " ++ show exercises) $ return ()
-  return $ Workout date workoutType exercises
+  return $ Workout (parseTimeM True defaultTimeLocale "%d/%m/%y" (fromMaybe "" date) :: Maybe Day) workoutType exercises
 
 exercise = do
     name <- manyTill anyChar (lookAhead digit)
@@ -71,6 +73,10 @@ exercise = do
     return $ Exercise name reps sets weight failure improvement
 
 
+{-
+Keep this here incase we ever want to give up doing our data science in haskell lmao
+This function will write the parsed data to a json file
+-}
 --main :: IO ()
 --main = do
     --contents <- Prelude.readFile "data.txt"
