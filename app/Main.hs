@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Lib (workoutFile, Workout(..), Exercise(..))
+import Parse (workoutFile, Workout(..), Exercise(..))
 import Text.Parsec
 import Data.Time
 import Data.Time.Clock.System

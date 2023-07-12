@@ -25,7 +25,7 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Parse
   other-modules:
       Paths_gym
   hs-source-dirs:
