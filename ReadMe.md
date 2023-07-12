@@ -1,7 +1,7 @@
 ## Motivation
 I wanted to do some fun data sciencey things with my gym data. Haskell is not often used in data science because it's hard but its concision, it's functional parsing libraries and its type system make it a good choice for this project. 
 
-# Python Dependencies
+## Python Dependencies
 These dependencies are only needed for plotting functionality.
 Since we are using matplotlib to plot the data we need to do some pip installations
 ```bash
