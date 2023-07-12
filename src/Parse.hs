@@ -1,6 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
 module Parse
-    ( workoutFile, Workout(..), Exercise(..)
+    ( workoutFile
     ) where
 
 import Text.Parsec
@@ -8,37 +7,9 @@ import Text.Parsec.String
 import Control.Applicative ((<$>), (<*>), (<*), (*>))
 import Control.Monad.Identity
 import Debug.Trace
-import Data.Aeson
 import Data.Maybe
-import GHC.Generics
 import Data.Time
-import Data.ByteString.Lazy  
-
-
-data Workout = Workout {
-    date :: Maybe Day,
-    workoutType :: Maybe String,
-    exercises :: [Exercise]
-} deriving (Show, Generic)
-
-
-data Exercise = Exercise {
-  name :: String,
-  reps :: Int,
-  sets :: Int,
-  weight :: Maybe Double,
-  failure :: Maybe Bool,
-  improvement :: Maybe Bool
-} deriving (Show, Generic)
-
--- The default definitions of the methods are defined in terms
--- of the methods provided by the Generic type class.
-instance ToJSON Exercise where
-    toEncoding = genericToEncoding defaultOptions
-instance FromJSON Exercise
-instance ToJSON Workout where
-    toEncoding = genericToEncoding defaultOptions
-instance FromJSON Workout
+import Types (Workout(..), Exercise(..))
 
 workoutFile :: ParsecT String u Identity [Workout]
 workoutFile = option [] (sepEndBy workout (many1 endOfLine)) <* eof

@@ -4,7 +4,8 @@ module Attendance
 
 import Data.Time
 import Data.Time.Clock.System
-import Parse (workoutFile, Workout(..), Exercise(..))
+import Parse (workoutFile)
+import Types (Workout(..), Exercise(..))
 
 {-
 Given a list of dates we want to them placed into sublists for each week

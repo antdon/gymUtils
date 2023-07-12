@@ -27,6 +27,7 @@ dependencies:
 - bytestring
 - text 
 - time
+- containers
 
 ghc-options:
 - -Wall
