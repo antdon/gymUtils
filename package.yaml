@@ -28,6 +28,7 @@ dependencies:
 - text 
 - time
 - containers
+- matplotlib
 
 ghc-options:
 - -Wall

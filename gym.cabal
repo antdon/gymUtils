@@ -39,6 +39,7 @@ library
     , base >=4.7 && <5
     , bytestring
     , containers
+    , matplotlib
     , mtl
     , parsec ==3.1.*
     , text
@@ -58,6 +59,7 @@ executable gym-exe
     , bytestring
     , containers
     , gym
+    , matplotlib
     , mtl
     , parsec ==3.1.*
     , text
@@ -78,6 +80,7 @@ test-suite gym-test
     , bytestring
     , containers
     , gym
+    , matplotlib
     , mtl
     , parsec ==3.1.*
     , text
