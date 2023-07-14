@@ -45,7 +45,9 @@ Args:
 Returns:
     the average number of workouts per week :: Int
 -}
-averageWorkOutsPerWeek :: [Workout] -> Int
-averageWorkOutsPerWeek workouts = sum attendances `div` length attendances
+
+
+averageWorkOutsPerWeek :: [Workout] -> Float
+averageWorkOutsPerWeek workouts = fromIntegral (sum attendances) / fromIntegral (length attendances)
     where attendances = map length $ weeks (firstDay (map date workouts)) (map date workouts)
         
